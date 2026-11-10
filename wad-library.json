@@ -1,0 +1,8 @@
+[
+  {
+    "id": "doom2",
+    "name": "DOOM II",
+    "description": "Hosted IWAD",
+    "file": "./Doom2.wad"
+  }
+]

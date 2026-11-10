@@ -2,7 +2,7 @@
   {
     "id": "doom2",
     "name": "DOOM II",
-    "description": "Hosted IWAD",
+    "description": "Doom II IWAD",
     "file": "./Doom2.wad"
   }
 ]

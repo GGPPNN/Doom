@@ -6,7 +6,6 @@
   --border: #343434;
   --text: #ededed;
   --muted: #9a9a9a;
-  --accent: #c8c8c8;
   --focus: #fff;
 }
 
@@ -124,10 +123,35 @@ h2 { margin: 0; font-size: 1rem; font-weight: 650; }
 .selection strong { overflow: hidden; text-overflow: ellipsis; }
 .status-message { min-height: 1.5em; margin: 12px 0 0; color: var(--muted); font-size: .84rem; }
 
+.game-overlay[hidden] { display: none; }
+.game-overlay {
+  position: fixed;
+  z-index: 5;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: #000;
+}
+.game-toolbar {
+  display: flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 16px;
+  background: #151515;
+  border-bottom: 1px solid #333;
+}
+.game-toolbar strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.game-canvas-wrap { display: grid; min-height: 0; place-items: center; overflow: hidden; }
+#canvas { display: block; width: min(100%, 1200px); height: min(100%, 900px); object-fit: contain; background: #000; }
+body.playing { overflow: hidden; }
+
 @media (max-width: 560px) {
   .launcher { width: min(100% - 28px, 920px); padding-top: 18px; }
   .topbar-note { font-size: .58rem; }
   .intro { padding: 42px 0 30px; }
   .upload-section { align-items: flex-start; flex-direction: column; }
   .button.secondary { width: 100%; }
+  .game-toolbar .button.secondary { width: auto; }
 }

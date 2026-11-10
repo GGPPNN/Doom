@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Choose a hosted Doom IWAD or select one from your device." />
+    <meta name="description" content="Choose and play a Doom IWAD in your browser." />
     <meta name="theme-color" content="#111111" />
     <title>DOOM — IWAD Launcher</title>
     <link rel="stylesheet" href="./styles.css" />
@@ -16,9 +16,9 @@
       </header>
 
       <section class="intro" aria-labelledby="page-title">
-        <p class="eyebrow">YOUR GAME, YOUR WAY</p>
+        <p class="eyebrow">VANILLA DOOM ENGINE · WASM</p>
         <h1 id="page-title">Choose an IWAD</h1>
-        <p class="intro-copy">Select a game hosted here, or use an IWAD from your device.</p>
+        <p class="intro-copy">Select a hosted game or use an IWAD from your device. Your local file stays in your browser.</p>
       </section>
 
       <section class="library-section" aria-labelledby="library-title">
@@ -32,7 +32,7 @@
       <section class="upload-section" aria-labelledby="upload-title">
         <div>
           <h2 id="upload-title">Use your own IWAD</h2>
-          <p>Choose a .wad file on your device. It stays in this browser session.</p>
+          <p>Choose an IWAD .wad file from your device. It is not uploaded.</p>
         </div>
         <label class="button secondary" for="wadInput">Choose IWAD</label>
         <input id="wadInput" type="file" accept=".wad,application/octet-stream" hidden />
@@ -43,9 +43,19 @@
           <span class="selection-label">SELECTED</span>
           <strong id="selectedName">Nothing selected</strong>
         </div>
-        <button id="launchBtn" class="button primary" type="button" disabled>Launch</button>
+        <button id="launchBtn" class="button primary" type="button" disabled>Play Doom II</button>
       </footer>
       <p id="statusMessage" class="status-message" role="status">Choose an IWAD to continue.</p>
+
+      <section id="gameOverlay" class="game-overlay" aria-label="Doom game" hidden>
+        <header class="game-toolbar">
+          <strong id="gameTitle">DOOM II</strong>
+          <button id="exitGameBtn" class="button secondary" type="button">Exit game</button>
+        </header>
+        <div class="game-canvas-wrap">
+          <canvas id="canvas" tabindex="0" aria-label="Doom gameplay"></canvas>
+        </div>
+      </section>
     </main>
 
     <script src="./app.js" defer></script>

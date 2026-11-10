@@ -1,36 +1,51 @@
-# DOOM — IWAD Launcher
+# DOOM — browser IWAD launcher
 
-A minimal browser launcher for choosing an IWAD hosted with the site or selecting one from your device.
+Choose the hosted DOOM II IWAD or select an IWAD from your device. The launcher passes the selected IWAD to a browser-compiled `doomgeneric` engine. Local uploads are read in the browser and are never sent to the server.
+
+## Run the site
+
+Serve the repository over HTTP(S), such as with GitHub Pages or `python3 -m http.server`. The engine must be present at `engine/doomgeneric.js` for gameplay to start. That file is a self-contained Emscripten build (the WASM is embedded in the JavaScript).
+
+## Build the browser engine
+
+The launcher uses the open-source [doomgeneric-WASM-builder](https://github.com/Kinsman4249/doomgeneric-WASM-builder), which compiles the original vanilla Doom engine for browsers. It is **not GZDoom/UZDoom** and does not run ZScript, UDMF, or GZDoom-specific mods.
+
+On a supported Debian/Ubuntu or Fedora system, build the runtime using the builder's documented steps:
+
+```bash
+git clone --branch v2.5.0 https://github.com/Kinsman4249/doomgeneric-WASM-builder.git
+cd doomgeneric-WASM-builder
+chmod +x install.sh
+./install.sh
+```
+
+When the build finishes, copy the generated `doomgeneric.js` from `~/doomgeneric/doomgeneric/doomgeneric.js` into this repository as `engine/doomgeneric.js`. Create the `engine/` directory first if needed. Then serve this repository over HTTP(S) and reload the page.
+
+The builder downloads and builds third-party source code, so review its installation instructions and license before running it. The resulting engine is GPL-licensed; preserve and provide the required source and license notices when you distribute a built copy.
 
 ## Add hosted IWADs
 
-Put the IWAD file in the published site, then add an entry to `wad-library.json`:
+Place each WAD at a path served by the site and add an entry to `wad-library.json`:
 
 ```json
 [
   {
     "id": "doom2",
     "name": "DOOM II",
-    "description": "Hosted IWAD",
+    "description": "Doom II IWAD",
     "file": "./Doom2.wad"
   },
   {
     "id": "my-game",
-    "name": "My Game",
+    "name": "My game",
     "description": "Optional short description",
     "file": "./wads/my-game.wad"
   }
 ]
 ```
 
-Each entry needs a unique `id`, a display `name`, and a `file` path relative to the manifest. The existing `Doom2.wad` is listed as the initial hosted game. Only list WAD files that you are authorized to distribute.
+Only host WADs you are legally allowed to distribute. Players can instead choose their own IWAD using **Choose IWAD**; local files remain in memory for that browser session. This initial vanilla engine expects an IWAD, not a standalone PWAD/mod.
 
-## Player uploads
+## Controls and current limits
 
-Players can select a `.wad` file with **Choose IWAD**. The file is kept in the current page session and is not uploaded to the website.
-
-## Gameplay status
-
-This version implements IWAD selection only. It does not include a Doom engine, so the Launch button explains that gameplay is not available until a browser/WASM engine is connected. The selected hosted URL or local `File` is available in `app.js` for that integration.
-
-Serve the files over HTTP(S) (for example with GitHub Pages) so the browser can fetch `wad-library.json` and the hosted WAD files.
+Use the keyboard controls supported by the engine (WASD/arrows, Ctrl to fire, Space to use; click the game canvas first). The current integration starts the engine with the selected IWAD. It is a first playable attempt; browser compatibility and the hosted WASM build still need to be tested on the deployed site.
